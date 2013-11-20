@@ -24,7 +24,7 @@ if not settings.configured:
         ]
     )
 
-from django.test.simple import run_tests
+from django.test.simple import DjangoTestSuiteRunner
 
 
 def runtests(*test_args):
@@ -32,7 +32,8 @@ def runtests(*test_args):
         test_args = ['pro', 'standard', 'ipn']
     parent = dirname(abspath(__file__))
     sys.path.insert(0, parent)
-    failures = run_tests(test_args, verbosity=1, interactive=True)
+    test_runner = DjangoTestSuiteRunner(verbosity=1)
+    failures = test_runner.run_tests(test_args, verbosity=1, interactive=True)
     sys.exit(failures)
 
 
